@@ -17,16 +17,7 @@ const ColBox = ({ Title, imdbID, Poster, Type, Year }) => {
             })
         return (
             <div>
-                {/* {
-                    JSON.stringify(this.state.detal)
-                } */}
-                {/* { this.state.detail.map((index) =>
-                <MovieDetail key={index}
-                    Title={Title}
-                    Poster={Poster}
-                />
-            )
-            } */}
+               deneme
             </div>
         )
     }
