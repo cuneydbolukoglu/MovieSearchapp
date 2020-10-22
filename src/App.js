@@ -1,25 +1,24 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import './App.scss';
-import { Form, Button, Container, Row, Col, Modal } from 'react-bootstrap'
+import { Form, Button, Container, Row, Col } from 'react-bootstrap'
 
 const API_KEY = '59669de6';
 
-const ColBox = ({ Title, imdbID, Poster, Type, Year }) => {
+const ColBox = ({ imdbID, Title, Poster, Type, Year }) => {
+
+    const dataArray = [];
 
     const clickHandler = () => {
 
         axios.get(`http://www.omdbapi.com/?i=${imdbID}&apikey=${API_KEY}`)
             .then(response => {
-                const detail = response.data
-                //this.setState({ detail });
-                console.log(detail);
+                const data = response.data
+                dataArray.push({ data });
+                console.log(dataArray[0].data);
+                const thisdata = dataArray[0].data
+                alert('Title: ' + thisdata.Title + ' - ' + 'Rating: ' + thisdata.imdbRating);
             })
-        return (
-            <div>
-               deneme
-            </div>
-        )
     }
 
     return (
@@ -34,45 +33,36 @@ const ColBox = ({ Title, imdbID, Poster, Type, Year }) => {
     )
 }
 
-const MovieDetail = ({ Title, Poster, Type, Year, imdbRating, Rated, Runtime, Genre, Plot }) => {
+// const MovieDetail = ({ Title, Poster, Type, Year, imdbRating, Rated, Runtime, Genre, Plot }) => {
 
-    return (
-        <div>
-            <Modal>
-                <Modal.Header>
-                    <Modal.Title>{Title}</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    <figure>
-                        <img src={Poster === 'N/A' ? 'https://placehold.it/198x264&text=Image+Not+Found' : Poster} alt={Title}></img>
-                    </figure>
-                    <span>{Type}</span>
-                    <div className="year">{Year}</div>
-                    <Row>
-                        <col>{imdbRating}</col>
-                        <col>{Runtime}</col>
-                        <col>{Rated}</col>
-                        <col>{Genre}</col>
-                        <col>{Plot}</col>
-                    </Row>
-                </Modal.Body>
-                <Modal.Footer>
-
-                </Modal.Footer>
-            </Modal>
-        </div>
-    )
-}
+//     return (
+//         <div>
+//             <figure>
+//                 <img src={Poster === 'N/A' ? 'https://placehold.it/198x264&text=Image+Not+Found' : Poster} alt={Title}></img>
+//             </figure>
+//             <span>{Type}</span>
+//             <div className="year">{Year}</div>
+//             <Row>
+//                 <col>{imdbRating}</col>
+//                 <col>{Runtime}</col>
+//                 <col>{Rated}</col>
+//                 <col>{Genre}</col>
+//                 <col>{Plot}</col>
+//             </Row>
+//         </div>
+//     )
+// }
 
 export default class App extends Component {
     constructor(props) {
         super(props)
 
         this.state = {
-            data: []
+            data: [],
+            visible: false
         }
     }
-
+    
     handleChange = event => {
         this.setState({ name: event.target.value });
     }
